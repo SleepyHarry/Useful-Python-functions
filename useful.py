@@ -171,9 +171,10 @@ def permute_case(s, delimiter=' '):
         elements. Hence the generator.
     '''
 
-    #start with an entirely lowercase string, then split it up
-    s = s.lower()
+    #split first, just in case the delimiter is an uppercase letter
     words = s.split(delimiter)
+
+    s = s.lower()
 
     #notice that each possible string can be represented uniquely by a trinary
     #number, such that
@@ -190,5 +191,6 @@ def permute_case(s, delimiter=' '):
     perms.sort(key=lambda x: x.count('2'))
 
     for perm in perms:
-        yield delimiter.join(cases[c](words[i]) for i, c in enumerate(map(int, perm)))
+        yield delimiter.join(cases[c](words[i])
+                             for i, c in enumerate(map(int, perm)))
 
